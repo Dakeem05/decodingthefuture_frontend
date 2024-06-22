@@ -17,16 +17,16 @@ export default function Dashboard() {
         style={{
           background: "linear-gradient(93.77deg, #0057FF 0%, #16A0FF 95.76%)",
         }}
-        className="h-[340px] w-full lg:px-16 px-9 pt-9 lg:pt-10"
+        className="h-[340px] w-full lg:px-16 px-4 pt-9 lg:pt-10"
       >
         <div className="flex h-full flex-col items-stretch">
           <div className="flex items-center justify-between">
             <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" />
             <p className="lg:text-4xl text-xl">Your Quest Points</p>
             <div className="">
-            <div className="lg:hidden">
-              <MobileNavigation />
-            </div>
+              <div className="lg:hidden">
+                <MobileNavigation />
+              </div>
             </div>
           </div>
 

@@ -1,12 +1,12 @@
-import MobileNavigation from '@/components/navigation/MobileNavigation'
-import QuestList from '@/components/quests/QuestList'
-import React from 'react'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { FaArrowLeft } from 'react-icons/fa'
+import MobileNavigation from "@/components/navigation/MobileNavigation";
+import QuestList from "@/components/quests/QuestList";
+import React from "react";
+import { AiOutlineMenu } from "react-icons/ai";
+import { FaArrowLeft } from "react-icons/fa";
 
 export default function Quests() {
   return (
-    <div>
+    <div className="font-xeroda">
       <div
         style={{
           background: "linear-gradient(93.77deg, #0057FF 0%, #16A0FF 95.76%)",
@@ -17,8 +17,10 @@ export default function Quests() {
           <div className="flex items-center justify-between">
             <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" />
             <p className="lg:text-4xl text-xl">Your Quest</p>
-            <div className="lg:hidden">
-              <MobileNavigation />
+            <div className="">
+              <div className="lg:hidden">
+                <MobileNavigation />
+              </div>
             </div>
           </div>
 
@@ -32,5 +34,5 @@ export default function Quests() {
         <QuestList />
       </section>
     </div>
-  )
+  );
 }

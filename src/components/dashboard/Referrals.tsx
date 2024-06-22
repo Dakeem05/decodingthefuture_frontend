@@ -1,6 +1,6 @@
 export default function Referrals() {
   return (
-    <div className="lg:px-20 px-11 py-12 font-xeroda">
+    <div className="lg:px-20 px-3 py-12 font-xeroda">
       <div className="flex mb-8 mx-auto items-center space-x-5">
         <div className="py-4 truncate flex-1 px-8 bg-[#1B1E24] rounded-[10px]">
           <p className="truncate text-sm lg:text-base">https://dft.io/auth/signup?upline=66749a4fcee4265e9f0b1d65</p>

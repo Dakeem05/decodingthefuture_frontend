@@ -2,7 +2,7 @@ import React from "react";
 
 export default function DailyClaims() {
   return (
-    <div className="lg:px-20 px-11 py-12 font-xeroda">
+    <div className="lg:px-20 px-3 py-12 font-xeroda">
       <div className="bg-[#1B1E24] mb-7 text-center rounded-[10px] flex flex-col lg:flex-row items-center justify-between lg:py-16 p-11 px-10 lg:px-24">
         <div className="flex items-center space-x-3">
           <div

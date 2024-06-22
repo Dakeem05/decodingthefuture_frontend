@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 
 export default function Leaderboard() {
   return (
-    <div>
+    <div className="font-xeroda">
       <div
         style={{
           background: "linear-gradient(93.77deg, #0057FF 0%, #16A0FF 95.76%)",
