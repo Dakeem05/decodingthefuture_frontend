@@ -11,7 +11,7 @@ export default function Leaderboard() {
         style={{
           background: "linear-gradient(93.77deg, #0057FF 0%, #16A0FF 95.76%)",
         }}
-        className="h-[340px] w-full lg:px-16 px-9 pt-9 lg:pt-10"
+        className="h-[340px] w-full lg:px-16 px-4 pt-9 lg:pt-10"
       >
         <div className="flex h-full flex-col items-stretch">
           <div className="flex items-center justify-between">
