@@ -3,16 +3,18 @@ import { useState } from "react";
 import InputBox from "../InputBox";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Spinner from "../Spinner";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
-export default function SignInForm() {
-  const [email, setEmail] = useState("");
+export default function ChangePassword() {
+  let email = sessionStorage.getItem("emailToVerify");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
+  const { setForgotPasswordActive} = useGlobalState();
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -24,7 +26,7 @@ export default function SignInForm() {
 
     try {
       const response = await fetch(
-        "https://backend.decodingthefuture.xyz/api/v1/auth/login",
+        "https://backend.decodingthefuture.xyz/api/v1/auth/change-password",
         {
           method: "POST",
           mode: "cors",
@@ -52,11 +54,11 @@ export default function SignInForm() {
       }
       const data = await response.json();
 
-      sessionStorage.setItem("token", data.data.token);
-      toast.success("Login was successful.");
+      sessionStorage.removeItem("emailToVerify");
+      toast.success(`${data.data}`);
+      router.push("/sign-in")
+      setForgotPasswordActive(false);
       setIsLoading(false);
-      
-      router.refresh()
     } catch (error) {
       console.log(error);
       setIsLoading(false);
@@ -71,22 +73,11 @@ export default function SignInForm() {
       }}
       className="w-full"
     >
-      <div className="mb-4">
-        <InputBox
-          type="email"
-          placeholder="Email address"
-          value={email}
-          onChange={(newValue: string) => {
-            setEmail(newValue);
-          }}
-        />
-        {emailError && <p className="text-red-500">{emailError}</p>}
-      </div>
 
       <div className="mb-4">
         <InputBox
           type="password"
-          placeholder="Enter password"
+          placeholder="Enter new password"
           value={password}
           onChange={(newValue: string) => {
             setPassword(newValue);
@@ -100,15 +91,8 @@ export default function SignInForm() {
         disabled={isLoading}
         className="uppercase disabled:cursor-not-allowed bg-[#0057FF] text-white text-xl py-4 lg:text-3xl lg:py-5 w-full rounded-[10px]"
       >
-        {isLoading ? <Spinner /> : "Log In"}
+        {isLoading ? <Spinner /> : "Change Password"}
       </button>
-
-      <p className="mt-3 text-base lg:text-xl">
-        Don&apos;t have an account yet?{" "}
-        <Link href="/sign-up" className="text-[#0768fe]">
-          Sign up today
-        </Link>
-      </p>
     </form>
   );
 }

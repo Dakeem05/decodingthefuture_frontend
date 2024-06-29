@@ -2,14 +2,20 @@
 import DailyClaims from "@/components/dashboard/DailyClaims";
 import Profile from "@/components/dashboard/Profile";
 import Referrals from "@/components/dashboard/Referrals";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
-import { AiOutlineMenu } from "react-icons/ai";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import MobileNavigation from "@/components/navigation/MobileNavigation";
+import { redirect, useRouter } from "next/navigation";
+import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function Dashboard() {
   const [activeState, setActiveState] = useState("profile");
+  const { token, userReferralCode, userPoint } = useGlobalState();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!token) redirect("/sign-up");
+  }, [token]);
 
   return (
     <div className="font-xeroda">
@@ -21,7 +27,8 @@ export default function Dashboard() {
       >
         <div className="flex h-full flex-col items-stretch">
           <div className="flex items-center justify-between">
-            <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" />
+            <div className=""></div>
+            {/* <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" /> */}
             <p className="lg:text-4xl text-xl">Your Quest Points</p>
             <div className="">
               <div className="lg:hidden">
@@ -38,7 +45,7 @@ export default function Dashboard() {
               }}
               className="w-[22px] lg:w-11 lg:h-11 h-[22px] rounded-full"
             ></div>
-            <p className="lg:text-5xl text-2xl">1000</p>
+            <p className="lg:text-5xl text-2xl">{userPoint}</p>
           </div>
 
           <div className="flex text-base lg:text-2xl justify-between">
@@ -76,9 +83,9 @@ export default function Dashboard() {
       <section>
         {activeState === "profile" && <Profile />}
 
-        {activeState === "referrals" && <Referrals />}
+        {activeState === "referrals" && <Referrals referralCode={userReferralCode} />}
 
-        {activeState === "dailyClaims" && <DailyClaims />}
+        {activeState === "dailyClaims" && <DailyClaims token={token} />}
       </section>
     </div>
   );

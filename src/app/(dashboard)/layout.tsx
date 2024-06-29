@@ -48,7 +48,7 @@ export default function DashboardLayout({
             })}
           </ul>
         </div>
-        <div className="w-full lg:pl-[30px] xl:pl-[310px] 2xl:pl-0">
+        <div className="w-full lg:pl-[250px] xl:pl-[310px] 2xl:pl-0">
           {children}
         </div>
       </div>

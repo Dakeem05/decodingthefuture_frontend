@@ -1,49 +1,26 @@
-import React from "react";
-import { MdDiversity3, MdGroups } from "react-icons/md";
+"use client";
+
+import { useGlobalState } from "@/context/GlobalStateContext";
+import { MdDiversity3} from "react-icons/md";
 
 export default function Rankings() {
-  const dummyRankings = [
-    {
-      sn: 1,
-      name: "Victor Okpukpan",
-      referrals: 4,
-      points: 6780,
-    },
-    {
-      sn: 2,
-      name: "Edidiong Samuel",
-      referrals: 4,
-      points: 5010,
-    },
-    {
-      sn: 3,
-      name: "Victor Okpukpan",
-      referrals: 4,
-      points: 6780,
-    },
-    {
-      sn: 4,
-      name: "Edidiong Samuel",
-      referrals: 4,
-      points: 5010,
-    },
-  ];
+  const { leaderboardData, leaderboardTotal } = useGlobalState();
 
   return (
     <div className="lg:px-20 px-3 py-12 font-xeroda">
-      <p className="text-xl lg:text-3xl">Total Participants (300)</p>
+      <p className="text-xl lg:text-3xl">Total Participants ({leaderboardTotal})</p>
       <div className="bg-[#1B1E24] rounded-[10px] mt-4 px-2 py-3">
         <div className="bg-[#0F1114] rounded-[10px] py-3 px-3 lg:px-7 mb-4 text-lg lg:text-xl">
           <p>Top 100</p>
         </div>
 
-        {dummyRankings.map((rank, i) => {
+        {leaderboardData.map((rank, i) => {
           return (
             <div
               className="bg-[#0F1114] rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg"
               key={i}
             >
-              <p>{rank.sn}</p>
+              <p>{rank.position}</p>
               <div className="flex items-center flex-grow space-x-2">
                 <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[#0057FF] rounded-full"></div>
                 <p>{rank.name}</p>
@@ -63,7 +40,7 @@ export default function Rankings() {
                   }}
                   className="w-4 h-4 rounded-full"
                 ></div>
-                <p>{rank.points}</p>
+                <p>{rank.point}</p>
               </div>
             </div>
           );

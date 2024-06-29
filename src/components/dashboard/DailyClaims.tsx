@@ -1,6 +1,44 @@
-import React from "react";
+"use client";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import Spinner from "../Spinner";
 
-export default function DailyClaims() {
+interface IDailyClaims {
+  token: string | null;
+}
+
+export default function DailyClaims({ token }: IDailyClaims) {
+  const [ isLoading, setIsLoading ] = useState(false);
+
+  async function claimPoints() {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://backend.decodingthefuture.xyz/api/v1/claim/index",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if(!response.ok){
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message);
+      }
+
+      const data = await response.json();
+      console.log(data)
+
+      setIsLoading(false);
+    } catch (error: any) {
+      toast.error(`Already Claimed`);
+      setIsLoading(false);
+    }
+  }
   return (
     <div className="lg:px-20 px-3 py-12 font-xeroda">
       <div className="bg-[#1B1E24] mb-7 text-center rounded-[10px] flex flex-col lg:flex-row items-center justify-between lg:py-16 p-11 px-10 lg:px-24">
@@ -16,8 +54,8 @@ export default function DailyClaims() {
         </div>
         <p className="text-2xl">Claim daily points every 24hrs</p>
       </div>
-      <button className="bg-[#0057FF] w-full text-white rounded-[10px] text-2xl py-5">
-        Claim
+      <button onClick={claimPoints} disabled={isLoading} className="bg-[#0057FF] disabled:cursor-not-allowed w-full text-white rounded-[10px] text-2xl py-5">
+      {isLoading ? <Spinner /> : "Claim"}
       </button>
     </div>
   );

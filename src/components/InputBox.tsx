@@ -1,7 +1,7 @@
 type TInput = {
   type: string;
   placeholder: string;
-  value: string;
+  value: any
   onChange: (newValue: string) => void;
 };
 

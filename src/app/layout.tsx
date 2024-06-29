@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import localfont from "next/font/local";
 import "./globals.css";
+import { GlobalStateProvider } from "@/context/GlobalStateContext";
+import { Bounce, ToastContainer } from "react-toastify";
 
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "700"],
@@ -31,7 +33,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${xeroda.variable} ${montserrat.className} h-full relative bg-[#0f1114] text-white`}>{children}</body>
+      <body
+        className={`${xeroda.variable} ${montserrat.className} h-full relative bg-[#0f1114] text-white`}
+      >
+        <GlobalStateProvider>
+          {children}
+          <ToastContainer
+            theme="dark"
+            position="top-right"
+            autoClose={5000}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </GlobalStateProvider>
+      </body>
     </html>
   );
 }
