@@ -32,7 +32,7 @@ export default function SignUpForm({ refCode }: {refCode: string | null}) {
       setPasswordError("");
       setDisableButton(false);
     }
-  }, [confirmPassword]);
+  }, [confirmPassword, password]);
 
   useEffect(() => {
     if (refCode !== "") {

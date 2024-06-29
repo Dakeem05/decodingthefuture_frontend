@@ -14,7 +14,7 @@ export default function SignIn() {
     if (token) {
       router.push("/dashboard")
     }
-  }, [token]);
+  }, [token, router]);
   
   return (
     <div>
