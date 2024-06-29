@@ -101,7 +101,7 @@ export default function QuestList() {
               return (
                 <Dialog key={i}>
                   <DialogTrigger asChild>
-                    <button disabled={quest.is_complete} className="bg-[#1B1E24] disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg">
+                    <button disabled={quest.is_complete} className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg">
                       <p className="">{quest.description}</p>
                       <div className="flex items-center space-x-1">
                         <div
@@ -139,7 +139,7 @@ export default function QuestList() {
                         type="text"
                         value={proof}
                         onChange={(e) => setProof(e.target.value)}
-                        placeholder="Username"
+                        placeholder={quest.requirement}
                         className="text-sm my-2 lg:text-base border rounded-lg border-[#0057FF] text-white outline-none bg-transparent p-2 w-full"
                       />
                       <button

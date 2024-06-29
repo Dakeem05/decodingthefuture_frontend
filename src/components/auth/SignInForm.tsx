@@ -12,7 +12,7 @@ export default function SignInForm() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -45,8 +45,7 @@ export default function SignInForm() {
         if (errorResponse.data.email)
           setEmailError(errorResponse.data.email[0]);
 
-        if (errorResponse.data.password)
-          setPasswordError(errorResponse.data.password[0]);
+        if (errorResponse.data.password) setPasswordError("Wrong password");
 
         throw new Error(errorMessage);
       }
@@ -55,8 +54,8 @@ export default function SignInForm() {
       sessionStorage.setItem("token", data.data.token);
       toast.success("Login was successful.");
       setIsLoading(false);
-      
-      router.refresh()
+
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       setIsLoading(false);

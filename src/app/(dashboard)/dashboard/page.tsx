@@ -10,12 +10,19 @@ import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function Dashboard() {
   const [activeState, setActiveState] = useState("profile");
-  const { token, userReferralCode, userPoint } = useGlobalState();
+  const { token, setToken, userReferralCode, userPoint } = useGlobalState();
   const router = useRouter();
 
   useEffect(() => {
-    if (!token) redirect("/sign-up");
-  }, [token]);
+    if (token === null) {
+      const storedToken = sessionStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+      } else {
+        router.push("/sign-up");
+      }
+    }
+  }, [router, setToken, token]);
 
   return (
     <div className="font-xeroda">
@@ -83,7 +90,9 @@ export default function Dashboard() {
       <section>
         {activeState === "profile" && <Profile />}
 
-        {activeState === "referrals" && <Referrals referralCode={userReferralCode} />}
+        {activeState === "referrals" && (
+          <Referrals referralCode={userReferralCode} />
+        )}
 
         {activeState === "dailyClaims" && <DailyClaims token={token} />}
       </section>

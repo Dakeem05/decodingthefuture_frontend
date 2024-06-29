@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #0f1114!important;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

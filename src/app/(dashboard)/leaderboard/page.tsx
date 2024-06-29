@@ -2,12 +2,14 @@
 import Rankings from "@/components/leaderboard/Rankings";
 import MobileNavigation from "@/components/navigation/MobileNavigation";
 import { useGlobalState } from "@/context/GlobalStateContext";
-import { redirect } from "next/navigation";
+import { Router } from "lucide-react";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 export default function Leaderboard() {
-  const { userPosition, token } = useGlobalState();
+  const { userPosition, token, setToken } = useGlobalState();
+  const router = useRouter();
 
   // function getOrdinalSuffix(number: number) {
   //   const lastDigit = parseInt(number.toString().slice(-1));
@@ -24,8 +26,16 @@ export default function Leaderboard() {
   // }
 
   useEffect(() => {
-    if (!token) redirect("/sign-up");
-  }, [token]);
+    if (token === null) {
+      const storedToken = sessionStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+      } else {
+        router.push("/sign-up");
+      }
+    }
+  }, [router, setToken, token]);
+
 
   // const formattedPosition = `${userPosition}${getOrdinalSuffix(userPosition)}`;
 

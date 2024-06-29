@@ -36,7 +36,7 @@ export default function Profile() {
 
     sessionStorage.clear();
 
-    router.refresh();
+    router.push("/sign-up");
     setUserName("");
     setUserEmail("");
     setUserReferralCode("");

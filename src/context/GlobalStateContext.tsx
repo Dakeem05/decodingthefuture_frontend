@@ -18,9 +18,10 @@ interface QuestData {
   point: number;
   link: string;
   deleted_at?: Date | null;
-  created_at: string;
-  updated_at: string;
-  is_complete: boolean;
+  created_at?: string;
+  updated_at?: string;
+  is_complete?: boolean;
+  requirement?: string;
 }
 
 interface ReferralData {
@@ -41,6 +42,7 @@ interface GlobalStateContextType {
   isRegistered: boolean;
   setIsRegistered: Dispatch<SetStateAction<boolean>>;
   token: string | null;
+  setToken: Dispatch<SetStateAction<string | null>>;
   userName: string;
   setUserName: Dispatch<SetStateAction<string>>;
   userEmail: string;
@@ -88,12 +90,14 @@ export const GlobalStateProvider: React.FC<{ children: ReactNode }> = ({
   const [quests, setQuests] = useState<QuestData[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [forgotPasswordActive, setForgotPasswordActive] = useState(false)
-  // const [token, setToken] = useState<string | null>("");
-  const token = sessionStorage.getItem("token");
-
-  // useEffect(() => {
-  //   // setToken(sessionStorage.getItem("token"))
-  // }, []);
+  const [token, setToken] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   useEffect(() => {
     async function getUser() {
@@ -228,6 +232,7 @@ export const GlobalStateProvider: React.FC<{ children: ReactNode }> = ({
         isRegistered,
         setIsRegistered,
         token,
+        setToken,
         userName,
         setUserName,
         userEmail,

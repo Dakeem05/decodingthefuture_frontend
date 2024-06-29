@@ -7,14 +7,18 @@ import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function SignIn() {
-  const { token } = useGlobalState();
+  const { token, setToken } = useGlobalState();
   const router = useRouter();
 
   useEffect(() => {
-    if (token) {
-      router.push("/dashboard")
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      router.push("/dashboard");
+    } else if (token) {
+      router.push("/dashboard");
     }
-  }, [token, router]);
+  }, [token, router, setToken]);
   
   return (
     <div>

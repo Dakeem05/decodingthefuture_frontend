@@ -3,16 +3,25 @@
 import MobileNavigation from "@/components/navigation/MobileNavigation";
 import QuestList from "@/components/quests/QuestList";
 import { useGlobalState } from "@/context/GlobalStateContext";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 export default function Quests() {
-  const { token } = useGlobalState();
+  const { token, setToken } = useGlobalState();
+  const router = useRouter()
 
   useEffect(() => {
-    if (!token) redirect("/sign-up");
-  }, [token]);
+    if (token === null) {
+      const storedToken = sessionStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+      } else {
+        router.push("/sign-up");
+      }
+    }
+  }, [router, setToken, token]);
+
 
   return (
     <div className="font-xeroda">
