@@ -1,7 +1,15 @@
 "use client";
 
 import { useGlobalState } from "@/context/GlobalStateContext";
-import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, useEffect, useState } from "react";
+import {
+  AwaitedReactNode,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import {
   Dialog,
   DialogContent,
@@ -23,7 +31,7 @@ export default function QuestList({ quests, token }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [taskClicked, setTaskClicked] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   async function submitQuest(id: number) {
     const formData = {
@@ -54,19 +62,14 @@ export default function QuestList({ quests, token }: any) {
       }
 
       const data = await response.json();
+      toast.success(`${data.data}`);
+
       setIsLoading(false);
       setClicked(false);
-      toast.success(`${data.data}`);
     } catch (error: any) {
       console.error("Failed to fetch quest data:", error);
       toast.error(`Quest Already submitted`);
       setIsLoading(false);
-    } finally {
-      router.refresh();
-
-      setTimeout(() => {
-        router.refresh();
-      }, 2000);
     }
   }
 
@@ -98,63 +101,105 @@ export default function QuestList({ quests, token }: any) {
           </button>
         ) : (
           <div className="">
-            {quests.map((quest: { is_complete: boolean | undefined; description: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; point: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; link: string | UrlObject; requirement: string | undefined; id: number; }, i: Key | null | undefined) => {
-              return (
-                <Dialog key={i}>
-                  <DialogTrigger asChild>
-                    <button disabled={quest.is_complete} className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg">
-                      <p className="">{quest.description}</p>
-                      <div className="flex items-center space-x-1">
-                        <div
-                          style={{
-                            background:
-                              "linear-gradient(296.93deg, #FFE600 13.61%, #FFF7AD 110.94%)",
-                          }}
-                          className="w-4 h-4 rounded-full"
-                        ></div>
-                        <p>{quest.point}</p>
-                      </div>
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent className="bg-black border border-[#0057FF]">
-                    <DialogHeader>
-                      <Link href={quest.link} target="_blank" rel="noreferrer">
-                        <DialogTitle>
-                          <button
-                            disabled={quest.is_complete}
-                            className="flex items-center space-x-2"
-                            onClick={() => setClicked(true)}
+            {quests.map(
+              (
+                quest: {
+                  is_complete: boolean | undefined;
+                  description:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | Iterable<ReactNode>
+                    | Promise<AwaitedReactNode>
+                    | null
+                    | undefined;
+                  point:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | Iterable<ReactNode>
+                    | Promise<AwaitedReactNode>
+                    | null
+                    | undefined;
+                  link: string | UrlObject;
+                  requirement: string | undefined;
+                  id: number;
+                },
+                i: Key | null | undefined
+              ) => {
+                return (
+                  <div key={i} className="px-4">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          disabled={quest.is_complete}
+                          className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg"
+                        >
+                          <p className="">{quest.description}</p>
+                          <div className="flex items-center space-x-1">
+                            <div
+                              style={{
+                                background:
+                                  "linear-gradient(296.93deg, #FFE600 13.61%, #FFF7AD 110.94%)",
+                              }}
+                              className="w-4 h-4 rounded-full"
+                            ></div>
+                            <p>{quest.point}</p>
+                          </div>
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-black border border-[#0057FF]">
+                        <DialogHeader>
+                          <Link
+                            href={quest.link}
+                            target="_blank"
+                            rel="noreferrer"
                           >
-                            <span>{quest.description}</span> <HiOutlineExternalLink />
+                            <DialogTitle>
+                              <button
+                                disabled={quest.is_complete}
+                                className="flex items-center space-x-2"
+                                onClick={() => setClicked(true)}
+                              >
+                                <span>{quest.description}</span>{" "}
+                                <HiOutlineExternalLink />
+                              </button>
+                            </DialogTitle>
+                          </Link>
+                          <DialogDescription>
+                            Click and complete the above task for {quest.point}{" "}
+                            points
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="">
+                          <p>Submit proof of completion:</p>
+                          <input
+                            type="text"
+                            value={proof}
+                            onChange={(e) => setProof(e.target.value)}
+                            placeholder={quest.requirement}
+                            className="text-sm my-2 lg:text-base border rounded-lg border-[#0057FF] text-white outline-none bg-transparent p-2 w-full"
+                          />
+                          <button
+                            disabled={
+                              !clicked || quest.is_complete || isLoading
+                            }
+                            className="bg-[#0057FF] disabled:cursor-not-allowed disabled:bg-[#0057FF]/50 text-white text-base py-2 lg:text-lg w-full rounded-[10px]"
+                            onClick={() => submitQuest(quest.id)}
+                          >
+                            {isLoading ? <Spinner /> : "Submit"}
                           </button>
-                        </DialogTitle>
-                      </Link>
-                      <DialogDescription>
-                        Click and complete the above task for {quest.point}{" "}
-                        points
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="">
-                      <p>Submit proof of completion:</p>
-                      <input
-                        type="text"
-                        value={proof}
-                        onChange={(e) => setProof(e.target.value)}
-                        placeholder={quest.requirement}
-                        className="text-sm my-2 lg:text-base border rounded-lg border-[#0057FF] text-white outline-none bg-transparent p-2 w-full"
-                      />
-                      <button
-                        disabled={!clicked || quest.is_complete || isLoading}
-                        className="bg-[#0057FF] disabled:cursor-not-allowed disabled:bg-[#0057FF]/50 text-white text-base py-2 lg:text-lg w-full rounded-[10px]"
-                        onClick={() => submitQuest(quest.id)}
-                      >
-                        {isLoading ? <Spinner /> : "Submit"}
-                      </button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              );
-            })}
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+                );
+              }
+            )}
           </div>
         )}
       </div>

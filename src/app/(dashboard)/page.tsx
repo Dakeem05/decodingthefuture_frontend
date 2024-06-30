@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
 
-    const storedToken = sessionStorage.getItem("token");
+    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
       router.push("/dashboard")

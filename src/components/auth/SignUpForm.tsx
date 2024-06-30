@@ -90,8 +90,8 @@ export default function SignUpForm({ refCode }: {refCode: string | null}) {
       }
       const data = await response.json();
 
-      sessionStorage.setItem("emailToVerify", email);
-      sessionStorage.setItem("token", data.data.token);
+      localStorage.setItem("emailToVerify", email);
+      localStorage.setItem("token", data.data.token);
 
 
       setIsModalOpen(true);

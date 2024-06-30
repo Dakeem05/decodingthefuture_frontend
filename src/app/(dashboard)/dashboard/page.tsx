@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (token === null) {
-      const storedToken = sessionStorage.getItem("token");
+      const storedToken = localStorage.getItem("token");
       if (storedToken) {
         setToken(storedToken);
       } else {
@@ -97,6 +97,7 @@ export default function Dashboard() {
 
     if (token) {
       getUser();
+      fetchReferrals();
     }
   }, [token]);
 
@@ -177,10 +178,15 @@ export default function Dashboard() {
         )}
 
         {activeState === "referrals" && (
-          <Referrals referralCode={userReferralCode} userReferralData={userReferralData} />
+          <Referrals
+            referralCode={userReferralCode}
+            userReferralData={userReferralData}
+          />
         )}
 
-        {activeState === "dailyClaims" && <DailyClaims token={token} />}
+        {activeState === "dailyClaims" && (
+          <DailyClaims setUserPoint={setUserPoint} token={token} />
+        )}
       </section>
     </div>
   );

@@ -5,6 +5,7 @@ import { routes } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineLeaderboard, MdOutlineTask } from "react-icons/md";
 
@@ -14,14 +15,25 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+
+  }, [setToken]);
 
   const matchPath = (path: string) => {
     return path === pathname;
   };
+
+
   return (
     <div className="max-w-[1300px] mx-auto">
       <div className="flex relative">
-        <div className="w-1/4 hidden lg:block bg-[#0F1114] lg:fixed px-4 2xl:relative min-h-screen border-[#4E4E4E] border-r">
+        <div className={`${token && "lg:block"}  w-1/4 hidden  bg-[#0F1114] lg:fixed px-4 2xl:relative min-h-screen border-[#4E4E4E] border-r`}>
           <div className="py-12 w-[110px] md:w-auto">
             <Image alt="Logo" src="/assets/ovals.svg" width={58} height={34} />
           </div>

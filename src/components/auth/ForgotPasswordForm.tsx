@@ -48,7 +48,7 @@ export default function ForgotPasswordForm() {
       }
       const data = await response.json();
 
-      sessionStorage.setItem("emailToVerify", email);
+      localStorage.setItem("emailToVerify", email);
       toast.success(`${data.data}`);
       
       setIsModalOpen(true);

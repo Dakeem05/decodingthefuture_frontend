@@ -14,7 +14,7 @@ export default function SignUp() {
   const referralCode = searchParams.get("ref");
 
   useEffect(() => {
-    const storedToken = sessionStorage.getItem("token");
+    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       setToken(storedToken);
       router.push("/dashboard")

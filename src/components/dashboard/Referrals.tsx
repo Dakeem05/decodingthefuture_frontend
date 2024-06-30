@@ -18,10 +18,10 @@ export default function Referrals({
   userReferralData,
 }: IReferral) {
   const [code, setCode] = useState(
-    `https://decodingthefuture.xyz/sign-up?ref=${referralCode}`
+    `https://quest.decodingthefuture.xyz/sign-up?ref=${referralCode}`
   );
 
-  // const { userReferralData } = useGlobalState();
+  
 
   const copyRefLink = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ export default function Referrals({
 
       {userReferralData.length < 1 ? (
         <div className="bg-[#1B1E24] w-full py-14 rounded-[10px]">
-          <p className="text-2xl lg:text-5xl text-center">No Refferals yet</p>
+          <p className="text-2xl lg:text-5xl text-center">No Referrals yet</p>
         </div>
       ) : (
         <div className="bg-[#1B1E24] rounded-[10px] mt-4 px-2 py-3">

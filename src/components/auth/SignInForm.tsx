@@ -51,7 +51,7 @@ export default function SignInForm() {
       }
       const data = await response.json();
 
-      sessionStorage.setItem("token", data.data.token);
+      localStorage.setItem("token", data.data.token);
       toast.success("Login was successful.");
       setIsLoading(false);
 

@@ -54,7 +54,7 @@ export default function ChangePassword() {
       }
       const data = await response.json();
 
-      sessionStorage.removeItem("emailToVerify");
+      localStorage.removeItem("emailToVerify");
       toast.success(`${data.data}`);
       router.push("/sign-in")
       setForgotPasswordActive(false);

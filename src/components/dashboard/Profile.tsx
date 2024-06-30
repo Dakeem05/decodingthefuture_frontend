@@ -42,7 +42,7 @@ export default function Profile({
     const data = await response.json();
     toast.success(`${data.data}`);
 
-    sessionStorage.clear();
+    localStorage.clear();
 
     router.push("/sign-up");
     setUserName("");

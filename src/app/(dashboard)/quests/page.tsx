@@ -29,7 +29,7 @@ export default function Quests() {
 
   useEffect(() => {
     if (token === null) {
-      const storedToken = sessionStorage.getItem("token");
+      const storedToken = localStorage.getItem("token");
       if (storedToken) {
         setToken(storedToken);
       } else {

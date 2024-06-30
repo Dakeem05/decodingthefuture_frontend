@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import { toast } from "react-toastify";
 
 export default function VerifyForgotPasswordOTP() {
-  let email = sessionStorage.getItem("emailToVerify");
+  let email = localStorage.getItem("emailToVerify");
 
   const [otp, setOtp] = useState("");
   const { setIsModalOpen, setForgotPasswordActive } = useGlobalState();

@@ -9,7 +9,7 @@ import Spinner from "../Spinner";
 import { toast } from "react-toastify";
 
 export default function VerifyOTP() {
-  let email = sessionStorage.getItem("emailToVerify");
+  let email = localStorage.getItem("emailToVerify");
 
   const [otp, setOtp] = useState("");
   const { setIsModalOpen, setCompleteRegistration } = useGlobalState();
@@ -56,7 +56,7 @@ export default function VerifyOTP() {
         router.push("/dashboard");
       }
 
-      sessionStorage.removeItem("emailToVerify");
+      localStorage.removeItem("emailToVerify");
       setCompleteRegistration(true)
       setLoading(false);
       toast.success(`${result.data}`);

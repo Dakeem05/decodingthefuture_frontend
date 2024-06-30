@@ -1,14 +1,43 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../Spinner";
 
 interface IDailyClaims {
   token: string | null;
+  setUserPoint: Dispatch<SetStateAction<number>>;
 }
 
-export default function DailyClaims({ token }: IDailyClaims) {
-  const [ isLoading, setIsLoading ] = useState(false);
+export default function DailyClaims({
+  token,
+  setUserPoint,
+}: IDailyClaims) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function getUser() {
+    const response = await fetch(
+      "https://backend.decodingthefuture.xyz/api/v1/auth/user",
+      {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const responseBody = await response.text();
+      throw new Error(
+        `Network response was not ok. Status code: ${response.status}. Message: ${responseBody}`
+      );
+    }
+
+    const data = await response.json();
+
+    setUserPoint(data.data.user.point.point);
+  }
 
   async function claimPoints() {
     setIsLoading(true);
@@ -25,13 +54,14 @@ export default function DailyClaims({ token }: IDailyClaims) {
         }
       );
 
-      if(!response.ok){
+      if (!response.ok) {
         const errorResponse = await response.json();
         throw new Error(errorResponse.message);
       }
 
       const data = await response.json();
-      console.log(data)
+      getUser();
+      toast.success(`${data.message}`);
 
       setIsLoading(false);
     } catch (error: any) {
@@ -54,8 +84,12 @@ export default function DailyClaims({ token }: IDailyClaims) {
         </div>
         <p className="text-2xl">Claim daily points every 24hrs</p>
       </div>
-      <button onClick={claimPoints} disabled={isLoading} className="bg-[#0057FF] disabled:cursor-not-allowed w-full text-white rounded-[10px] text-2xl py-5">
-      {isLoading ? <Spinner /> : "Claim"}
+      <button
+        onClick={claimPoints}
+        disabled={isLoading}
+        className="bg-[#0057FF] disabled:cursor-not-allowed w-full text-white rounded-[10px] text-2xl py-5"
+      >
+        {isLoading ? <Spinner /> : "Claim"}
       </button>
     </div>
   );
