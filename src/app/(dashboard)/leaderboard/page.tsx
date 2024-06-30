@@ -4,11 +4,24 @@ import MobileNavigation from "@/components/navigation/MobileNavigation";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { Router } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
+interface LeaderboardEntry {
+  position: number;
+  name: string;
+  referrals: number;
+  point: number;
+}
+
 export default function Leaderboard() {
-  const { userPosition, token, setToken } = useGlobalState();
+  // const { userPosition, token, setToken } = useGlobalState();
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>(
+    []
+  );
+  const [userPosition, setUserPosition] = useState(1);
+  const [leaderboardTotal, setLeaderboardTotal] = useState(0);
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
   // function getOrdinalSuffix(number: number) {
@@ -38,6 +51,43 @@ export default function Leaderboard() {
 
 
   // const formattedPosition = `${userPosition}${getOrdinalSuffix(userPosition)}`;
+
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      try {
+        const response = await fetch(
+          "https://backend.decodingthefuture.xyz/api/v1/leaderboard/index",
+          {
+            method: "GET",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          const responseBody = await response.text();
+          throw new Error(
+            `Network response was not ok. Status code: ${response.status}. Message: ${responseBody}`
+          );
+        }
+
+        const data = await response.json();
+
+        setLeaderboardTotal(data.data.total);
+        setUserPosition(data.data.position);
+        setLeaderboardData(data.data.leaderboard);
+      } catch (error) {
+        console.error("Failed to fetch leaderboard data:", error);
+      }
+    }
+
+    if (token) {
+      fetchLeaderboard();
+    }
+  }, [token]);
 
   return (
     <div className="font-xeroda">
@@ -75,7 +125,7 @@ export default function Leaderboard() {
       </div>
 
       <section>
-        <Rankings />
+        <Rankings leaderboardData={leaderboardData} leaderboardTotal={leaderboardTotal} />
       </section>
     </div>
   );

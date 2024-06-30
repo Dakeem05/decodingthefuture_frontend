@@ -55,7 +55,7 @@ export default function SignInForm() {
       toast.success("Login was successful.");
       setIsLoading(false);
 
-      router.push("/dashboard");
+      router.push("/dashboard")
     } catch (error) {
       console.log(error);
       setIsLoading(false);

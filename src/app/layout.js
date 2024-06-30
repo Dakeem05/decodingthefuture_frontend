@@ -78,7 +78,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${xeroda.variable} ${montserrat.className} h-full relative bg-[#0f1114] text-white`}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="w-full min-h-screen text-white flex items-center justify-center">Welcome</div>}>
           <GlobalStateProvider>
             {children}
             <ToastContainer

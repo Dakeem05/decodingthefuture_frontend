@@ -1,10 +1,11 @@
 "use client";
 
 import { useGlobalState } from "@/context/GlobalStateContext";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, AwaitedReactNode, Key } from "react";
 import { MdDiversity3} from "react-icons/md";
 
-export default function Rankings() {
-  const { leaderboardData, leaderboardTotal } = useGlobalState();
+export default function Rankings({ leaderboardData, leaderboardTotal }: any) {
+  // const { leaderboardData, leaderboardTotal } = useGlobalState();
 
   return (
     <div className="lg:px-20 px-3 py-12 font-xeroda">
@@ -14,7 +15,7 @@ export default function Rankings() {
           <p>Top 100</p>
         </div>
 
-        {leaderboardData.map((rank, i) => {
+        {leaderboardData.map((rank: { position: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; name: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; referrals: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; point: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | null | undefined; }, i: Key | null | undefined) => {
           return (
             <div
               className="bg-[#0F1114] rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg"

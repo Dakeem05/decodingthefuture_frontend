@@ -6,16 +6,24 @@ import { MdOutlineLogout } from "react-icons/md";
 import { toast } from "react-toastify";
 import { Skeleton } from "../ui/skeleton";
 
-export default function Profile() {
-  const {
-    userName,
-    userEmail,
-    token,
-    setUserName,
-    setUserEmail,
-    setUserReferralCode,
-    setUserReferrerCode,
-  } = useGlobalState();
+export default function Profile({
+  userName,
+  userEmail,
+  token,
+  setUserName,
+  setUserEmail,
+  setUserReferralCode,
+  setUserReferrerCode,
+}: any) {
+  // const {
+  //   userName,
+  //   userEmail,
+  //   token,
+  //   setUserName,
+  //   setUserEmail,
+  //   setUserReferralCode,
+  //   setUserReferrerCode,
+  // } = useGlobalState();
   const router = useRouter();
 
   async function logOut() {
@@ -44,11 +52,11 @@ export default function Profile() {
   }
 
   function getNameInitials(name: string) {
-    const nameParts = name.split(' ');
-  
-    const initials = nameParts.map(part => part[0].toUpperCase());
+    const nameParts = name.split(" ");
 
-    return initials.join('');
+    const initials = nameParts.map((part) => part[0].toUpperCase());
+
+    return initials.join("");
   }
 
   return (

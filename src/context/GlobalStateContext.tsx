@@ -97,7 +97,7 @@ export const GlobalStateProvider: React.FC<{ children: ReactNode }> = ({
     if (storedToken) {
       setToken(storedToken);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     async function getUser() {

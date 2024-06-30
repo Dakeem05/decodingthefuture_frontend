@@ -7,14 +7,21 @@ import { useGlobalState } from "@/context/GlobalStateContext";
 
 interface IReferral {
   referralCode: string;
+  userReferralData: {
+    name: string;
+    point: number;
+  }[];
 }
 
-export default function Referrals({ referralCode }: IReferral) {
+export default function Referrals({
+  referralCode,
+  userReferralData,
+}: IReferral) {
   const [code, setCode] = useState(
     `https://decodingthefuture.xyz/sign-up?ref=${referralCode}`
   );
 
-  const { userReferralData } = useGlobalState();
+  // const { userReferralData } = useGlobalState();
 
   const copyRefLink = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -43,7 +50,6 @@ export default function Referrals({ referralCode }: IReferral) {
 
       <div className="flex mb-5 justify-between text-base lg:text-3xl items-center">
         <p className="">Total Invites ({userReferralData.length})</p>
-        
       </div>
 
       {userReferralData.length < 1 ? (

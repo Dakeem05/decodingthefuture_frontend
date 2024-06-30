@@ -4,11 +4,12 @@ import SignInForm from "@/components/auth/SignInForm";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SignIn() {
-  const { token, setToken } = useGlobalState();
+  // const { token, setToken } = useGlobalState();
   const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");

@@ -8,10 +8,23 @@ import MobileNavigation from "@/components/navigation/MobileNavigation";
 import { redirect, useRouter } from "next/navigation";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
+interface ReferralData {
+  name: string;
+  point: number;
+}
+
 export default function Dashboard() {
   const [activeState, setActiveState] = useState("profile");
-  const { token, setToken, userReferralCode, userPoint } = useGlobalState();
+  // const { token, setToken, userReferralCode, userPoint } = useGlobalState();
   const router = useRouter();
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userReferralCode, setUserReferralCode] = useState("");
+  const [userReferrerCode, setUserReferrerCode] = useState("");
+  const [userPoint, setUserPoint] = useState(0);
+  const [token, setToken] = useState<string | null>(null);
+  const [userReferralData, setUserReferralData] = useState<ReferralData[]>([]);
 
   useEffect(() => {
     if (token === null) {
@@ -23,6 +36,69 @@ export default function Dashboard() {
       }
     }
   }, [router, setToken, token]);
+
+  useEffect(() => {
+    async function getUser() {
+      const response = await fetch(
+        "https://backend.decodingthefuture.xyz/api/v1/auth/user",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const responseBody = await response.text();
+        throw new Error(
+          `Network response was not ok. Status code: ${response.status}. Message: ${responseBody}`
+        );
+      }
+
+      const data = await response.json();
+
+      setUserName(data.data.user.name);
+      setUserEmail(data.data.user.email);
+      setUserReferralCode(data.data.user.referral_code);
+      setUserReferrerCode(data.data.user.referrer_code);
+      setUserPoint(data.data.user.point.point);
+    }
+
+    async function fetchReferrals() {
+      try {
+        const response = await fetch(
+          "https://backend.decodingthefuture.xyz/api/v1/referral/index",
+          {
+            method: "GET",
+            mode: "cors",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          const responseBody = await response.text();
+          throw new Error(
+            `Network response was not ok. Status code: ${response.status}. Message: ${responseBody}`
+          );
+        }
+
+        const data = await response.json();
+        setUserReferralData(data.data);
+      } catch (error) {
+        console.error("Failed to fetch referral data:", error);
+      }
+    }
+
+    if (token) {
+      getUser();
+    }
+  }, [token]);
 
   return (
     <div className="font-xeroda">
@@ -88,10 +164,20 @@ export default function Dashboard() {
       </div>
 
       <section>
-        {activeState === "profile" && <Profile />}
+        {activeState === "profile" && (
+          <Profile
+            userName={userName}
+            userEmail={userEmail}
+            token={token}
+            setUserName={setUserName}
+            setUserEmail={setUserEmail}
+            setUserReferralCode={setUserReferralCode}
+            setUserReferrerCode={setUserReferrerCode}
+          />
+        )}
 
         {activeState === "referrals" && (
-          <Referrals referralCode={userReferralCode} />
+          <Referrals referralCode={userReferralCode} userReferralData={userReferralData} />
         )}
 
         {activeState === "dailyClaims" && <DailyClaims token={token} />}

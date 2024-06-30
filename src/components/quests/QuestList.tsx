@@ -1,7 +1,7 @@
 "use client";
 
 import { useGlobalState } from "@/context/GlobalStateContext";
-import { useEffect, useState } from "react";
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -15,9 +15,10 @@ import Link from "next/link";
 import Spinner from "../Spinner";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { UrlObject } from "url";
 
-export default function QuestList() {
-  const { quests, token } = useGlobalState();
+export default function QuestList({ quests, token }: any) {
+  // const { quests, token } = useGlobalState();
   const [proof, setProof] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -97,7 +98,7 @@ export default function QuestList() {
           </button>
         ) : (
           <div className="">
-            {quests.map((quest, i) => {
+            {quests.map((quest: { is_complete: boolean | undefined; description: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; point: string | number | bigint | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<AwaitedReactNode> | null | undefined; link: string | UrlObject; requirement: string | undefined; id: number; }, i: Key | null | undefined) => {
               return (
                 <Dialog key={i}>
                   <DialogTrigger asChild>
