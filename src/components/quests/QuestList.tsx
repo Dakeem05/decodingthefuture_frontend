@@ -115,6 +115,16 @@ export default function QuestList({ quests, token }: any) {
                     | Promise<AwaitedReactNode>
                     | null
                     | undefined;
+                  name:
+                    | string
+                    | number
+                    | bigint
+                    | boolean
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | Iterable<ReactNode>
+                    | Promise<AwaitedReactNode>
+                    | null
+                    | undefined;
                   point:
                     | string
                     | number
@@ -134,12 +144,12 @@ export default function QuestList({ quests, token }: any) {
                 return (
                   <div key={i} className="px-4">
                     <Dialog>
-                      <DialogTrigger asChild>
+                      <DialogTrigger asChild className="py-[1rem]">
                         <button
                           disabled={quest.is_complete}
                           className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center space-x-2 lg:text-lg"
                         >
-                          <p className="">{quest.description}</p>
+                          <p className="">{quest.name}</p>
                           <div className="flex items-center space-x-1">
                             <div
                               style={{
