@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputBox from "../InputBox";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -8,13 +8,20 @@ import Spinner from "../Spinner";
 import { useGlobalState } from "@/context/GlobalStateContext";
 
 export default function ChangePassword() {
-  let email = sessionStorage.getItem("emailToVerify");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
-  const { setForgotPasswordActive} = useGlobalState();
+  const router = useRouter();
+  const { setForgotPasswordActive } = useGlobalState();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("emailToVerify");
+    if (storedToken) {
+      setEmail(storedToken);
+    }
+  }, []);
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -56,7 +63,7 @@ export default function ChangePassword() {
 
       localStorage.removeItem("emailToVerify");
       toast.success(`${data.data}`);
-      router.push("/sign-in")
+      router.push("/sign-in");
       setForgotPasswordActive(false);
       setIsLoading(false);
     } catch (error) {
@@ -73,7 +80,6 @@ export default function ChangePassword() {
       }}
       className="w-full"
     >
-
       <div className="mb-4">
         <InputBox
           type="password"

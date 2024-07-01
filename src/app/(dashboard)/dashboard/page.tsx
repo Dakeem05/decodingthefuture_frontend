@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [userPoint, setUserPoint] = useState(0);
   const [token, setToken] = useState<string | null>(null);
   const [userReferralData, setUserReferralData] = useState<ReferralData[]>([]);
+  const [lastClaim, setLastClaim] = useState<Date | string>("")
 
   useEffect(() => {
     if (token === null) {
@@ -65,6 +66,7 @@ export default function Dashboard() {
       setUserReferralCode(data.data.user.referral_code);
       setUserReferrerCode(data.data.user.referrer_code);
       setUserPoint(data.data.user.point.point);
+      setLastClaim(data.data.user.point.last_claim_at)
     }
 
     async function fetchReferrals() {
@@ -113,7 +115,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className=""></div>
             {/* <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" /> */}
-            <p className="lg:text-4xl text-xl">Your Quest Points</p>
+            <div></div>
             <div className="">
               <div className="lg:hidden">
                 <MobileNavigation />
@@ -185,7 +187,7 @@ export default function Dashboard() {
         )}
 
         {activeState === "dailyClaims" && (
-          <DailyClaims setUserPoint={setUserPoint} token={token} />
+          <DailyClaims setUserPoint={setUserPoint} lastClaim={lastClaim} setLastClaim={setLastClaim} token={token} />
         )}
       </section>
     </div>

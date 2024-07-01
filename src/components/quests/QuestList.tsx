@@ -142,12 +142,12 @@ export default function QuestList({ quests, token }: any) {
                 i: Key | null | undefined
               ) => {
                 return (
-                  <div key={i} className="px-4">
+                  <div key={i} className="last:mb-0 mb-4">
                     <Dialog>
-                      <DialogTrigger asChild >
+                      <DialogTrigger asChild>
                         <button
                           disabled={quest.is_complete}
-                          className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 last:mb-0 mb-4 text-base flex items-center pb-[1rem] space-x-2 lg:text-lg"
+                          className="bg-[#1B1E24] text-left disabled:bg-[#1B1E24]/20 disabled:cursor-not-allowed w-full justify-between rounded-[10px] py-3 px-3 lg:px-7 text-base flex items-center pb-[1rem] space-x-2 lg:text-lg"
                         >
                           <p className="">{quest.name}</p>
                           <div className="flex items-center space-x-1">
@@ -172,15 +172,15 @@ export default function QuestList({ quests, token }: any) {
                             <DialogTitle>
                               <button
                                 disabled={quest.is_complete}
-                                className="flex items-center space-x-2"
+                                className="text-left mr-10 mb-5 space-x-2"
                                 onClick={() => setClicked(true)}
                               >
-                                <span>{quest.description}</span>{" "}
-                                <HiOutlineExternalLink />
+                               <p className="leading-6"> {quest.description}{" "}
+                               <HiOutlineExternalLink className="inline-block" /></p>
                               </button>
                             </DialogTitle>
                           </Link>
-                          <DialogDescription>
+                          <DialogDescription className="text-left my-5">
                             Click and complete the above task for {quest.point}{" "}
                             points
                           </DialogDescription>

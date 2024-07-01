@@ -85,7 +85,7 @@ export default function Quests() {
           <div className="flex items-center justify-between">
             {/* <FaArrowLeft className="lg:w-11 lg:h-11 w-[22px] h-[22px]" /> */}
             <div className=""></div>
-            <p className="lg:text-4xl text-xl">Your Quest</p>
+            <div></div>
             <div className="">
               <div className="lg:hidden">
                 <MobileNavigation />

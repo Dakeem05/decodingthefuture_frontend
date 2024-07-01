@@ -33,7 +33,7 @@ export default function DashboardLayout({
   return (
     <div className="max-w-[1300px] mx-auto">
       <div className="flex relative">
-        <div className={`${token && "lg:block"}  w-1/4 hidden  bg-[#0F1114] lg:fixed px-4 2xl:relative min-h-screen border-[#4E4E4E] border-r`}>
+        <div className={`lg:block  w-1/4 hidden  bg-[#0F1114] lg:fixed px-4 2xl:relative min-h-screen border-[#4E4E4E] border-r`}>
           <div className="py-12 w-[110px] md:w-auto">
             <Image alt="Logo" src="/assets/ovals.svg" width={58} height={34} />
           </div>
