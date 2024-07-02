@@ -100,7 +100,7 @@ export default function Quests() {
       </div>
 
       <section>
-        <QuestList quests={quests} token={token} />
+        <QuestList quests={quests} setQuests={setQuests} token={token} />
       </section>
     </div>
   );

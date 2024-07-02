@@ -24,14 +24,43 @@ import Spinner from "../Spinner";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { UrlObject } from "url";
+import { FaCheck } from "react-icons/fa6";
 
-export default function QuestList({ quests, token }: any) {
+export default function QuestList({ quests, token, setQuests }: any) {
   // const { quests, token } = useGlobalState();
   const [proof, setProof] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [taskClicked, setTaskClicked] = useState(false);
   const router = useRouter();
+
+  async function fetchQuests() {
+    try {
+      const response = await fetch(
+        "https://backend.decodingthefuture.xyz/api/v1/quest",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const responseBody = await response.text();
+        throw new Error(
+          `Network response was not ok. Status code: ${response.status}. Message: ${responseBody}`
+        );
+      }
+
+      const data = await response.json();
+      setQuests(data.data);
+    } catch (error) {
+      console.error("Failed to fetch quest data:", error);
+    }
+  }
 
   async function submitQuest(id: number) {
     const formData = {
@@ -63,6 +92,8 @@ export default function QuestList({ quests, token }: any) {
 
       const data = await response.json();
       toast.success(`${data.data}`);
+
+      fetchQuests();
 
       setIsLoading(false);
       setClicked(false);
@@ -151,14 +182,20 @@ export default function QuestList({ quests, token }: any) {
                         >
                           <p className="">{quest.name}</p>
                           <div className="flex items-center space-x-1">
-                            <div
-                              style={{
-                                background:
-                                  "linear-gradient(296.93deg, #FFE600 13.61%, #FFF7AD 110.94%)",
-                              }}
-                              className="w-4 h-4 rounded-full"
-                            ></div>
-                            <p>{quest.point}</p>
+                            {quest.is_complete ? (
+                              <FaCheck className="w-4 h-4 text-green-500" />
+                            ) : (
+                              <>
+                                <div
+                                  style={{
+                                    background:
+                                      "linear-gradient(296.93deg, #FFE600 13.61%, #FFF7AD 110.94%)",
+                                  }}
+                                  className="w-4 h-4 rounded-full"
+                                ></div>
+                                <p>{quest.point}</p>
+                              </>
+                            )}
                           </div>
                         </button>
                       </DialogTrigger>
@@ -175,8 +212,11 @@ export default function QuestList({ quests, token }: any) {
                                 className="text-left mr-10 mb-5 space-x-2"
                                 onClick={() => setClicked(true)}
                               >
-                               <p className="leading-6"> {quest.description}{" "}
-                               <HiOutlineExternalLink className="inline-block" /></p>
+                                <p className="leading-6">
+                                  {" "}
+                                  {quest.description}{" "}
+                                  <HiOutlineExternalLink className="inline-block" />
+                                </p>
                               </button>
                             </DialogTitle>
                           </Link>
