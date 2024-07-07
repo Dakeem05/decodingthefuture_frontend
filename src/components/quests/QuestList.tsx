@@ -110,14 +110,15 @@ export default function QuestList({ quests, token, setQuests }: any) {
         Decoding The
         <br className="lg:hidden" /> Future Quest
       </h1>
-      <p className="text-sm lg:text-lg">
+      <p className="text-sm lg:text-lg mb-1">
         Participate in exciting tasks and quests to earn DTF points and climb
         the leaderboard.
       </p>
+      <p className="text-sm lg:text-lg mb-1">
+        Win a phone and prize up to 500,000 Naira.
+      </p>
       <p className="text-sm lg:text-lg">
-        Compete with others for a chance to win amazing tech prizes like phones,
-        laptops, access to premium courses, and more. Join now and let the
-        adventure begin!
+        Note: All entries will be checked manually to confirm that you completed the task.
       </p>
 
       <div className="mt-20">
