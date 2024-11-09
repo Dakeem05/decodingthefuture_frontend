@@ -14,12 +14,13 @@ export default function AuthLayout({
           <div className="flex-1 px-10 lg:px-20">
             <Wrapper>
               <div className="py-14 w-[110px] md:w-auto">
-                <Image
+                {/* <Image
                   alt="Logo"
                   src="/assets/logo.svg"
                   width={223}
                   height={60}
-                />
+                /> */}
+                <h1 className="text-3xl md:text-5xl font-bold text-white">Socrates Nigeria</h1>
               </div>
               {children}
             </Wrapper>
