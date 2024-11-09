@@ -35,19 +35,19 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="Quest website for the upcoming 'Decoding The Future' event organized by FACOSA Uniuyo."
+          content="Quest website for 'Socrates Nigeria'."
         />
         {/* <link rel="icon" type="image/x-icon" href="@/public/favicon.ico" /> */}
-        <title>Quests | Decoding The Future</title>
+        <title>Quests | Socrates Nigeria</title>
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://quest.decodingthefuture.xyz" />
         <meta
           property="og:title"
-          content="Quests | Decoding The Future"
+          content="Quests | Socrates Nigeria"
         />
         <meta
           property="og:description"
-          content="Quest website for the upcoming 'Decoding The Future' event organized by FACOSA Uniuyo."
+          content="Quest website for 'Socrates Nigeria'."
         />
         <meta
           property="og:image"
@@ -55,16 +55,16 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="twitter:card"
-          content="Quest website for the upcoming 'Decoding The Future' event organized by FACOSA Uniuyo."
+          content="Quest website for 'Socrates Nigeria'."
         />
         <meta name="twitter:url" content="https://quest.decodingthefuture.xyz" />
         <meta
           name="twitter:title"
-          content="Quest | Decoding The Future"
+          content="Quest | Socrates Nigeria"
         />
         <meta
           name="twitter:description"
-          content="Quest website for the upcoming 'Decoding The Future' event organized by FACOSA Uniuyo."
+          content="Quest website for 'Socrates Nigeria'."
         />
         <meta
           name="twitter:image"
