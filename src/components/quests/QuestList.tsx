@@ -111,15 +111,15 @@ export default function QuestList({ quests, token, setQuests }: any) {
         <br className="lg:hidden" /> Future Quest
       </h1>
       <p className="text-sm lg:text-lg mb-1">
-        Participate in exciting tasks and quests to earn DTF points and climb
-        the leaderboard.
+        Participate in exciting tasks and quests and earn SN points and climb
+        the leaderboard to win amazing cash & tech prizes like phones, laptops and more. Join now and let the adventure begin.
       </p>
-      <p className="text-sm lg:text-lg mb-1">
+      {/* <p className="text-sm lg:text-lg mb-1">
         Win a phone and prize up to 500,000 Naira.
       </p>
       <p className="text-sm lg:text-lg">
         Note: All entries will be checked manually to confirm that you completed the task.
-      </p>
+      </p> */}
 
       <div className="mt-20">
         <h1 className="text-xl lg:text-2xl mb-3">Tasks</h1>

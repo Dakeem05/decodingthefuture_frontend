@@ -25,7 +25,7 @@ export default function SignIn() {
     <div>
       <div className="lg:flex flex-col items-start justify-center h-screen">
         <h1 className="lg:text-3xl text-xl mb-3 lg:mb-9">
-          Log in to Decoding The Future Quest{" "}
+          Log in to Socrates Nigeria Quest{" "}
         </h1>
         <SignInForm />
         <p className="mt-5 text-center text-[#0768fe]"><Link href="/forgot-password">Forgot Password?</Link></p>
