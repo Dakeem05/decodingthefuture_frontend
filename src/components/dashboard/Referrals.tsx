@@ -18,7 +18,7 @@ export default function Referrals({
   userReferralData,
 }: IReferral) {
   const [code, setCode] = useState(
-    `https://quest.decodingthefuture.xyz/sign-up?ref=${referralCode}`
+    `https://decodingthefuture.xyz/sign-up?ref=${referralCode}`
   );
 
   
